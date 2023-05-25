@@ -23,7 +23,7 @@ export default {
     fetchData() {
       axios
         .get(
-          'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=c5ed5377732d2deb01a4c02a81e3d30f&tags=mila+kunis&per_page=20&format=json&nojsoncallback=1'
+          'https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=c5ed5377732d2deb01a4c02a81e3d30f&tags=cats&per_page=20&format=json&nojsoncallback=1'
         )
         .then((response) => {
           this.photos = response.data.photos.photo
