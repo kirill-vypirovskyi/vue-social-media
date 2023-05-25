@@ -14,9 +14,11 @@
     "crypto-js": "^4.1.1",
     "daisyui": "^2.51.6",
     "flickr-sdk": "^6.2.1",
+    "googleapis": "^118.0.0",
     "oauth-1.0a": "^2.2.6",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0",
+    "vue3-google-login": "^2.0.15",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

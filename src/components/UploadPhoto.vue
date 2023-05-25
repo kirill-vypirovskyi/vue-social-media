@@ -1,13 +1,7 @@
 <script>
-import { sendOAuthRequest } from '../api/authorize'
-
-export default {
-  created() {
-    sendOAuthRequest()
-  },
-}
+export default {}
 </script>
 
 <template>
-  <div>{{ url }}</div>
+  <div>123</div>
 </template>

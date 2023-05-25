@@ -1,39 +1,35 @@
-import axios from 'axios'
-import { createBaseString, generateNonce } from '../functions/auth.js'
+import { GoogleAuth } from 'google-auth-library'
 
-export const sendOAuthRequest = async () => {
-  const requestTockenUrl = 'https://www.flickr.com/services/oauth/request_token'
-  const oauthCallback = 'http://localhost:5173'
-  const oauthConsumerKey = import.meta.env.VITE_CONSUMER_KEY
-  const oauthSignatureMethod = 'HMAC-SHA1'
-  const oauthVersion = '1.0'
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
+const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET
+const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI
+const SCOPES = ['https://www.googleapis.com/auth/photoslibrary.readonly']
 
-  const oauthNonce = generateNonce()
-  const oauthTimestamp = Math.floor(Date.now() / 1000).toString()
+const auth = new GoogleAuth({
+  clientId: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  redirectUri: REDIRECT_URI
+})
 
-  const baseString = createBaseString(
-    requestTockenUrl,
-    oauthCallback,
-    oauthConsumerKey,
-    oauthNonce,
-    oauthSignatureMethod,
-    oauthTimestamp,
-    oauthVersion
-  )
-  // const oauthSignature = generateSignature(baseString, import.meta.env.VITE_CONSUMER_SECRET)
+// Генерування URL авторизації
+export const authUrl = auth.generateAuthUrl({
+  access_type: 'offline',
+  scope: SCOPES
+})
 
-  // const requestUrl = `${url}?oauth_callback=${encodeURIComponent(
-  //   oauthCallback
-  // )}&oauth_consumer_key=${oauthConsumerKey}&oauth_nonce=${oauthNonce}&oauth_signature=${encodeURIComponent(
-  //   oauthSignature
-  // )}&oauth_signature_method=${oauthSignatureMethod}&oauth_timestamp=${oauthTimestamp}&oauth_version=${oauthVersion}`
+// // Обробка колбеку після авторизації
+// const code = 'AUTHORIZATION_CODE'; // Отриманий код авторизації
+// auth.getToken(code, (err, tokens) => {
+// if (err) {
+// console.error('Помилка отримання токена доступу:', err);
+// return;
+// }
 
-  const requestUrl = `${requestTockenUrl}?${baseString}`
+// // Токен доступу
+// const accessToken = tokens.access_token;
+// // Оновлюваний токен доступу
+// const refreshToken = tokens.refresh_token;
 
-  try {
-    const response = await axios.get(requestUrl)
-    console.log(response)
-  } catch (error) {
-    console.error(error)
-  }
-}
+// // Використання токена доступу для виконання запитів до Google Photos API
+// // Реалізуйте необхідні запити тут
+// });

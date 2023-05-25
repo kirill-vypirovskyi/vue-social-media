@@ -9,8 +9,16 @@ export default {
     NavBar,
     PageTabs,
     Container,
-    FooterBlock,
+    FooterBlock
   }
+}
+</script>
+
+<script setup>
+const callback = (response) => {
+  // This callback will be triggered when the user selects or login to
+  // his Google account from the popup
+  console.log('Handle the response', response)
 }
 </script>
 
@@ -18,6 +26,7 @@ export default {
   <div class="min-h-screen flex flex-col">
     <NavBar />
     <Container>
+      <GoogleLogin prompt :callback="callback"/>
       <PageTabs />
       <router-view></router-view>
     </Container>
